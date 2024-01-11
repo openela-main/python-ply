@@ -1,0 +1,27 @@
+From 129a530a7165dbb83ab9a5a723318b51dcd59edd Mon Sep 17 00:00:00 2001
+From: Christian Heimes <cheimes@redhat.com>
+Date: Mon, 11 Nov 2019 14:38:29 +0100
+Subject: [PATCH] Make MD5 fingerprint FIPS compatible
+
+Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=1747490
+Signed-off-by: Christian Heimes <cheimes@redhat.com>
+---
+ ply/yacc.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ply/yacc.py b/ply/yacc.py
+index 6842832..9e1b07a 100644
+--- a/ply/yacc.py
++++ b/ply/yacc.py
+@@ -2963,7 +2963,7 @@ class ParserReflect(object):
+         except ImportError:
+             from md5 import md5
+         try:
+-            sig = md5()
++            sig = md5(usedforsecurity=False)
+             if self.start:
+                 sig.update(self.start.encode('latin-1'))
+             if self.prec:
+-- 
+2.23.0
+
